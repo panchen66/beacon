@@ -1,0 +1,45 @@
+server:
+  port: 9999
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: product
+  cloud:
+    consul:
+      host: 
+      port: 8500
+      discovery:
+        config:
+          enable: true
+          profileSeparator: /
+          format: yaml
+        heartbeat:
+          enabled: true
+          ttl-value: 5
+          ttl-unit: s
+        preferIpAddress: true
+        instanceId: ${spring.application.name}:${random.value}
+  zipkin:
+    base-url: 
+  sleuth:
+    sampler:
+      percentage: 1.0
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+druid:
+  read:
+    datasource:
+      url:
+      username: 
+      password:
+      driverClassName: com.mysql.jdbc.Driver
+  write:
+    datasource:
+      url:
+      username:
+      password:
+      driverClassName: com.mysql.jdbc.Driver   

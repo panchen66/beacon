@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper
+	namespace="com.panchen.beacon.product.mapper.write.ProductWriteMapper">
+
+	<resultMap id="ProductResult"
+		type="com.panchen.beacon.product.domain.Product">
+		<result column="id" property="id" />
+		<result column="createTime" property="createTime" />
+		<result column="updateTime" property="updateTime" />
+		<result column="introduce" property="introduce" />
+		<result column="author" property="author" />
+		<result column="gitUrl" property="gitUrl" />
+		<result column="type" property="type" />
+	</resultMap>
+
+	<sql id="Base_Column_List">
+		id, createTime,updateTime,introduce, author, gitUrl,type
+	</sql>
+
+	<insert id="addProduct" parameterType="com.panchen.beacon.product.domain.Product" keyProperty="id"
+		useGeneratedKeys="true">
+		insert into product(
+		<include refid="Base_Column_List" />
+		)
+		values(#{product.id},#{product.createTime},#{product.updateTime},#{product.introduce},#{product.author},#{product.gitUrl},#{product.type})
+	</insert>
+</mapper>

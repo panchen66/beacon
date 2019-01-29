@@ -1,0 +1,37 @@
+server:
+  port: 8888
+  servlet:
+    context-path: /
+spring:
+  application:
+    name: blog
+  data:
+    mongodb:
+      uri: mongodb://101.132.39.29:27017/beacon-blog
+  cloud:
+    consul:
+      host: 
+      port: 8500
+      discovery:
+        healthCheckInterval: 15s
+        health-check-timeout: 1s
+        config:
+          enable: true
+          profileSeparator: /
+          format: yaml
+        heartbeat:
+          enabled: true
+          ttl-value: 5
+          ttl-unit: s
+        preferIpAddress: true
+        instanceId: ${spring.application.name}:${random.value}
+  zipkin:
+    base-url: 
+  sleuth:
+    sampler:
+      percentage: 1.0
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1

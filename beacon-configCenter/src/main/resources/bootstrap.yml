@@ -1,0 +1,33 @@
+server:
+  port: 4444
+logging:
+  file: beacon-configCenter.log
+  level: 
+    root: info
+spring:
+  application:
+    name: configCenter
+  cloud:
+    config:
+      server:
+        git:
+          uri: 
+          username: 
+          password: 
+          strict-host-key-checking: false
+    consul:
+       host: 
+       port: 8500
+       discovery:
+         healthCheckInterval: 15s
+         health-check-timeout: 1s
+         config:
+           enable: true
+           profileSeparator: /
+           format: yaml
+         heartbeat:
+           enabled: true
+           ttl-value: 5
+           ttl-unit: s
+         preferIpAddress: true
+         instanceId: ${spring.application.name}:${random.value}

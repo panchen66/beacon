@@ -1,0 +1,48 @@
+server:
+  port: 10000
+spring:
+  application:
+    name: beacon-apigw
+  cloud:
+    consul:
+      host: 
+      port: 8500
+      discovery:
+        healthCheckInterval: 15s
+        health-check-timeout: 1s
+        config:
+          enable: true
+          profileSeparator: /
+          format: yaml
+        heartbeat:
+          enabled: true
+          ttl-value: 5
+          ttl-unit: s
+        preferIpAddress: true
+        instanceId: ${spring.application.name}:${random.value}
+    gateway:
+      default-filters:
+      routes:
+      - id: i5xforyou-biz-auth
+        uri: lb://i5xforyou-biz-auth
+        predicates:
+        - Path= /**
+        filters:
+        - StripPrefix= 1
+  redis:
+    cluster:
+      nodes: 
+ribbon:
+  ReadTimeout: 30000
+  ConnectTimeout: 30000
+  MaxAutoRetries: 0
+  MaxAutoRetriesNextServer: 1
+hystrix:
+  command:
+    default:
+      execution:
+        timeout:
+          enabled: true
+        isolation:
+          thread:
+            timeoutInMilliseconds: 30000
